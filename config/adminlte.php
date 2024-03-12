@@ -170,7 +170,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'd-none',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -331,13 +331,14 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'Profile',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'New Profile',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/register',
             'icon' => 'fas fa-fw fa-users',
+            'can' => 'admin'
         ],
         // [
         //     'text'    => 'multilevel',

@@ -50,8 +50,12 @@ class EntradasController extends Controller
             $inicial = $request->input('num_inicial');
             for ($inicial; $inicial <=  $request->input('num_final'); $inicial++) {
                 $carro = Inventarios::where('inventario', $inicial)->first();
-                $carro->ubicacion = $request->input('ubi');
-                $carro->save();
+                if (!empty($carro)) {
+                    $carro->ubicacion = $request->input('ubi');
+                    $carro->save();
+                } else {
+                    return back()->with('error','si');
+                }
             }
             return back()->with('error', 'no');
         } else {

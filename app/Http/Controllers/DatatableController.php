@@ -12,7 +12,7 @@ class DatatableController extends Controller
     public function productos(Request $request)
     {
         if ($request->filled('month')) {
-            $month = "2024-03";
+            $month = $request->input('month');
             $parts = explode('-', $month);
             $startDate = now()->setYear($parts[0])->setMonth($parts[1])->startOfMonth();
             $endDate = now()->setYear($parts[0])->setMonth($parts[1])->endOfMonth();
@@ -38,7 +38,7 @@ class DatatableController extends Controller
     }
     public function cant_carros()
     {
-        $inventarios = Inventarios::all();
+        $inventarios = Inventarios::where('movimientos_salida_id',null)->get();
         foreach ($inventarios as $inventario) {
             ${$inventario->linea} = 0;
             foreach ($inventarios as $productos) {

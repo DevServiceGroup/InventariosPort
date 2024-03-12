@@ -288,4 +288,13 @@
             });
         </script>
     @endif
+    @if (session('error') == 'si')
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "Por favor verifica los datos!",
+                icon: "error"
+            });
+        </script>
+    @endif
 @stop
