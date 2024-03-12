@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Imports\EntradasImport;
 use App\Models\Inventarios;
 use App\Models\Movimientos;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EntradasController extends Controller
@@ -16,7 +18,8 @@ class EntradasController extends Controller
     public function index()
     {
         $movimientos = Movimientos::where('tipo', '=', 'entrada')->get();
-        return view('entradas')->with('movimientos', $movimientos);
+        $admin = User::find(Auth::id())->getRoleNames()->first()=='admin' ?  "si":'no';
+        return view('entradas')->with('movimientos', $movimientos)->with('admin',$admin);
     }
 
     /**

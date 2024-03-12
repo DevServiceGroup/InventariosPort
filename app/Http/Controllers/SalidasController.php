@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Inventarios;
 use App\Models\Movimientos;
 use App\Models\Salidas;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SalidasController extends Controller
 {
@@ -14,9 +16,10 @@ class SalidasController extends Controller
      */
     public function index()
     {
+        $admin = User::find(Auth::id())->getRoleNames()->first()=='admin' ?  "si":'no';
         $movimientos = Movimientos::where('tipo', '=', 'salida')->get();
 
-        return view('salidas')->with('movimientos', $movimientos);
+        return view('salidas')->with('movimientos', $movimientos)->with('admin',$admin);
     }
 
     /**

@@ -7,33 +7,36 @@
 @stop
 
 @section('content')
-    <div class="card">
-        <h2 class="card-title ml-4 mt-4">Salida</h2>
-        <div class="card-body">
-            <div class="card-text">
-                <form action="{{route('admin.salidas.store')}}" method="post">
-                    @csrf
-                    <div class="row m-2">
-                        <div class="form-group col-6">
-                            <label for="">Digita la placa del vehiculo que recoge</label>
-                            <input type="text" name="placa_vehiculo" class="form-control">
+    @if ($admin == 'si')
+        <div class="card">
+            <h2 class="card-title ml-4 mt-4">Salida</h2>
+            <div class="card-body">
+                <div class="card-text">
+                    <form action="{{ route('admin.salidas.store') }}" method="post">
+                        @csrf
+                        <div class="row m-2">
+                            <div class="form-group col-6">
+                                <label for="">Digita la placa del vehiculo que recoge</label>
+                                <input type="text" name="placa_vehiculo" class="form-control">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="">Indique los numeros de inventario separados por guion</label>
+                                <input type="text" placeholder="332381-99999-652514" name="inventarios"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="">Digite el Tipo de Vehiculo que recoge</label>
+                                <input type="text" placeholder="" name="tipo_vehiculo" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success col-6">Subir</button>
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="">Indique los numeros de inventario separados por guion</label>
-                            <input type="text" placeholder="332381-99999-652514" name="inventarios" class="form-control">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="">Digite el Tipo de Vehiculo que recoge</label>
-                            <input type="text" placeholder="" name="tipo_vehiculo" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success col-6">Subir</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="card">
         <h2 class="card-title ml-4 mt-4">Registro de Entradas</h2>
         <div class="card-body">
@@ -193,12 +196,14 @@
             });
         });
     </script>
-    @if (session('yasalio')=='si')
-        <script>Swal.fire({
-            title: "Error!",
-            text: "Alguno de los vehiculos ya salio",
-            icon: "error"
-          });</script>
+    @if (session('yasalio') == 'si')
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "Alguno de los vehiculos ya salio",
+                icon: "error"
+            });
+        </script>
     @endif
     @if (session('error') == 'si')
         <script>

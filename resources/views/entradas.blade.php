@@ -8,90 +8,94 @@
 
 @section('content')
 
-    <div class="card">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab1">Ingresos Productos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab2">Ingresar Posiciones</a>
-                </li>
-                {{-- <li class="nav-item">
+    @if ($admin == 'si')
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tab1">Ingresos Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab2">Ingresar Posiciones</a>
+                    </li>
+                    {{-- <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#tab3">Tab 3</a>
                     </li> --}}
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div class="tab-pane fade show active m-auto" id="tab1">
-                <h2 class="card-title ml-4 mt-4">Ingreso</h2>
-                <div class="card-body">
-                    <div class="card-text">
-                        <form action="{{ route('admin.entradas.store') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row m-2">
-                                <div class="form-group col-6">
-                                    <label for="">Seleccione el Archivo</label>
-                                    <input type="file" class="form-control" name="archivo" id="" placeholder="">
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active m-auto" id="tab1">
+                    <h2 class="card-title ml-4 mt-4">Ingreso</h2>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <form action="{{ route('admin.entradas.store') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row m-2">
+                                    <div class="form-group col-6">
+                                        <label for="">Seleccione el Archivo</label>
+                                        <input type="file" class="form-control" name="archivo" id=""
+                                            placeholder="">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="">¿Todos los vehiculos tienen la misma posicion ?</label>
+                                        <select name="" id="varios" class="form-control">
+                                            <option value="" disabled selected></option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-6" style="display: none" id="unico">
+                                        <label for="">Indique la posicion</label>
+                                        <input type="text" name="unico" id="unico" class="form-control">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="" style="color: red">Deacuerdo a esta informacion realizaremos
+                                            el
+                                            proceso de
+                                            ingreso y de inventario</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success col-6">Subir</button>
+                                    </div>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label for="">¿Todos los vehiculos tienen la misma posicion ?</label>
-                                    <select name="" id="varios" class="form-control">
-                                        <option value="" disabled selected></option>
-                                        <option value="SI">SI</option>
-                                        <option value="NO">NO</option>
-                                    </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab2">
+                    <h5 class="card-title ml-4 mt-4">Ubicaciones</h5>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <form action="{{ route('admin.entradas.store') }}" method="post">
+                                @csrf
+                                <div class="row m-2">
+                                    <div class="form-group col-6">
+                                        <label for="">Indique numero de inventario Inicial</label>
+                                        <input type="text" name="num_inicial" id="" class="form-control"
+                                            placeholder="" aria-describedby="helpId">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="">Indique numero de inventario Final</label>
+                                        <input type="text" name="num_final" id="" class="form-control"
+                                            placeholder="" aria-describedby="helpId">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="">Digite la Ubicacion</label>
+                                        <input type="text" name="ubi" id="" class="form-control"
+                                            placeholder="" aria-describedby="helpId">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success col-6">Asignar Ubicacion</button>
+                                    </div>
                                 </div>
-                                <div class="form-group col-6" style="display: none" id="unico">
-                                    <label for="">Indique la posicion</label>
-                                    <input type="text" name="unico" id="unico" class="form-control">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="" style="color: red">Deacuerdo a esta informacion realizaremos el
-                                        proceso de
-                                        ingreso y de inventario</label>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success col-6">Subir</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="tab2">
-                <h5 class="card-title ml-4 mt-4">Ubicaciones</h5>
-                <div class="card-body">
-                    <div class="card-text">
-                        <form action="{{route('admin.entradas.store')}}" method="post">
-                            @csrf
-                            <div class="row m-2">
-                                <div class="form-group col-6">
-                                    <label for="">Indique numero de inventario Inicial</label>
-                                    <input type="text" name="num_inicial" id="" class="form-control" placeholder=""
-                                        aria-describedby="helpId">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="">Indique numero de inventario Final</label>
-                                    <input type="text" name="num_final" id="" class="form-control" placeholder=""
-                                        aria-describedby="helpId">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="">Digite la Ubicacion</label>
-                                    <input type="text" name="ubi" id="" class="form-control" placeholder=""
-                                        aria-describedby="helpId">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success col-6">Asignar Ubicacion</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        </div>
+    @endif
     <div class="card">
         <h2 class="card-title ml-4 mt-4">Registro de Entradas</h2>
         <div class="card-body">
