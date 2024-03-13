@@ -18,8 +18,8 @@ class EntradasController extends Controller
     public function index()
     {
         $movimientos = Movimientos::where('tipo', '=', 'entrada')->get();
-        $admin = User::find(Auth::id())->getRoleNames()->first()=='admin' ?  "si":'no';
-        return view('entradas')->with('movimientos', $movimientos)->with('admin',$admin);
+        $admin = User::find(Auth::id())->getRoleNames()->first() == 'admin' ?  "si" : 'no';
+        return view('entradas')->with('movimientos', $movimientos)->with('admin', $admin);
     }
 
     /**
@@ -41,14 +41,12 @@ class EntradasController extends Controller
             if ($request->filled('unico')) {
                 $ubicacion = $request->input('unico');
                 Excel::import(new EntradasImport($ubicacion), $archivo);
+                return back();
             } else {
                 $ubicacion = null;
                 Excel::import(new EntradasImport($ubicacion), $archivo);
+                return back();
             }
-            // $movimientos->cant_vehiculos=
-
-
-            return back()->with('error', 'no');
         } else if ($request->filled('num_inicial') && $request->filled('num_final') && $request->filled('ubi')) {
             $inicial = $request->input('num_inicial');
             for ($inicial; $inicial <=  $request->input('num_final'); $inicial++) {
@@ -57,7 +55,7 @@ class EntradasController extends Controller
                     $carro->ubicacion = $request->input('ubi');
                     $carro->save();
                 } else {
-                    return back()->with('error','si');
+                    return back()->with('error', 'si');
                 }
             }
             return back()->with('error', 'no');

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::resource('admin/entradas', EntradasController::class)->names('admin.entradas')->middleware('auth');
 Route::resource('admin/profile', ProfileController::class)->names('admin.profile')->middleware('auth');
-Route::resource('admin/inventarios', InventariosController::class)->names('admin.inventarios');
+Route::resource('admin/inventarios', InventariosController::class)->names('admin.inventarios')->middleware('auth');
 Route::resource('admin/salidas', SalidasController::class)->names('admin.salidas')->middleware('auth');
 Route::get('admin/datatable', [DatatableController::class, 'productos'])->name('datatable.productos')->middleware('auth');
 Route::get('admin/verdetalles/{id}', [DatatableController::class, 'verdetalles'])->name('datatable.verdetalles')->middleware('auth');

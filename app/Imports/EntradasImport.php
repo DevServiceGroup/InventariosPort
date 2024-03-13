@@ -29,13 +29,12 @@ class EntradasImport implements ToCollection
     {
         $movimientos = new Movimientos();
         $movimientos->tipo = 'entrada';
-        
+
         $cant_carros = 0;
 
         foreach ($rows as $row) {
-            // dd(Inventarios::where('inventario', '=', $row[8])->exists());
             if (Inventarios::where('inventario', '=', $row[8])->exists()) {
-                return back()->with('duplicado', 'si');
+                return redirect()->route('admin.entradas.index')->with('duplicado', 'si');  
             } else {
                 $movimientos->save();
                 $inventario = new Inventarios();
@@ -54,6 +53,6 @@ class EntradasImport implements ToCollection
         $movimientos->save();
         // $detallemovimientos = new Detalle_movimientos();
         // $detallemovimientos->;
-        return null;
+        return redirect()->route('admin.entradas.index')->with('error', 'no');  ;
     }
 }

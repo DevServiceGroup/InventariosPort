@@ -276,15 +276,17 @@
 
     @if (session('duplicado') == 'si')
         <script>
+            console.log('algoz');
             Swal.fire({
                 title: "Error!",
-                text: "Alguna registro ya existe!",
+                text: "Algun registro ya existe!",
                 icon: "error"
             });
         </script>
     @endif
     @if (session('error') == 'no')
         <script>
+            console.log('algozss');
             Swal.fire({
                 title: "Exito!",
                 text: "Los registros se guardaron con exito!",
