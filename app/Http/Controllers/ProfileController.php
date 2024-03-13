@@ -14,7 +14,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $rol = $user->getRoleNames();
+        $rol = $user->getRoleNames()->first();
+        $user->rol=$rol;
 
 
         return view('profile')->with('user', $user);

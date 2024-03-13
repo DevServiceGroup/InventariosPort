@@ -205,12 +205,31 @@
             });
         </script>
     @endif
+    @if (session('noexiste') == 'si')
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "Alguno de los vehiculos no existe",
+                icon: "error"
+            });
+        </script>
+    @endif
     @if (session('error') == 'si')
         <script>
             Swal.fire({
                 title: "Error!",
                 text: "Por favor verifica los datos!",
                 icon: "error"
+            });
+        </script>
+    @endif
+    @if (session('error') == 'no')
+        <script>
+            console.log('algozss');
+            Swal.fire({
+                title: "Exito!",
+                text: "Los registros se guardaron con exito!",
+                icon: "success"
             });
         </script>
     @endif

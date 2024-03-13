@@ -16,10 +16,10 @@ class SalidasController extends Controller
      */
     public function index()
     {
-        $admin = User::find(Auth::id())->getRoleNames()->first()=='admin' ?  "si":'no';
+        $admin = User::find(Auth::id())->getRoleNames()->first() == 'admin' ?  "si" : 'no';
         $movimientos = Movimientos::where('tipo', '=', 'salida')->get();
 
-        return view('salidas')->with('movimientos', $movimientos)->with('admin',$admin);
+        return view('salidas')->with('movimientos', $movimientos)->with('admin', $admin);
     }
 
     /**
@@ -42,7 +42,9 @@ class SalidasController extends Controller
             $salida->save();
             foreach ($cant_carros as $cant_carro) {
                 $carro = Inventarios::where('inventario', $cant_carro)->first();
-                if ($carro->movimientos_salida_id != null) {
+                if (empty($carro)) {
+                    return back()->with('noexiste', 'si');
+                } else if ($carro->movimientos_salida_id != null) {
                     return back()->with('yasalio', 'si');
                 }
                 $carro->movimientos_salida_id = $salida->id;
